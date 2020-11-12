@@ -2,7 +2,7 @@
 # vim: dict=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   lib.sh of /CoreOS/mysql/Library/basic
+#   lib.sh of /CoreOS/database/mysql
 #   Description: Set of basic functions for mysql
 #   Author: Branislav Blaskovic <bblaskov@redhat.com>
 #
