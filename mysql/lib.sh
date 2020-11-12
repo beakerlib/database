@@ -158,7 +158,7 @@ mysqlStart() {
     # but on Fedora it fails to re-create it because of lack of permissions to /var/log, OH MY!
     checklog() {
         if ! [[ -e $mysqlLog ]] ; then
-           rlLogInfo "Restoring the log file (workaround bug #832035)"
+           rlLogInfo "Restoring the log file (workaround)"
            rlRun "touch $mysqlLog" 0 "Creating the logfile"
            rlRun "chown mysql:mysql $mysqlLog" 0 "Fixing ownership of the logfile"
            rlRun "chmod 640 $mysqlLog" 0 "Fixing permissions of the logfile"
