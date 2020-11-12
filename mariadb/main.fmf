@@ -1,0 +1,10 @@
+summary: Set of basic functions for mariadb
+contact:
+- Lukas Zachar <lzachar@redhat.com>
+test: ./runtest.sh
+framework: beakerlib
+require:
+- sed
+recommend:
+- mariadb
+- mariadb-server
