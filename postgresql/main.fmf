@@ -1,0 +1,7 @@
+summary: Set of basic functions for postgresql
+contact:
+- Vaclav Danek <vdanek@redhat.com>
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+- initscripts
