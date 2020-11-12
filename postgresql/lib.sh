@@ -2,10 +2,11 @@
 # vim: dict=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   lib.sh of /CoreOS/postgresql/Library/basic
+#   lib.sh of /CoreOS/database/postgresql
 #   Description: Set of basic functions for postgresql
 #   Author: Branislav Blaskovic <bblaskov@redhat.com>
 #   Author: Jakub Prokes <jprokes@redhat.com>
+#   Author: Vaclav Danek <vdanek@redhat.com>
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -34,7 +35,7 @@ true <<'=cut'
 
 =head1 NAME
 
-postgresql/basic - set of basic functions for PostgreSQL
+database/postgresql - set of basic functions for PostgreSQL
 
 =head1 DESCRIPTION
 
@@ -951,16 +952,16 @@ postgresqlLibraryLoaded() {
     export PAGER="";
     rlLogInfo "PostgreSQL library constructor."
     if postgresqlAssertRpms postgresql rh-postgresql12 rh-postgresql10 rh-postgresql96 rh-postgresql95 rh-postgresql94 postgresql92 postgresql84; then
-        __postgresqlLogDebug "Library postgresql/basic is loaded."
+        __postgresqlLogDebug "Library database/postgresql is loaded."
         ## order is importatant!
         if rlIsRHEL "<6"; then
             __postgresqlLogDebug "Damm! This is RHEL-5!";
 #            rlAssertRpm redhat-lsb || \
-#                rlDie "redhat-lsb-core package is neccessary for postgresql/basic library.";
+#                rlDie "redhat-lsb-core package is neccessary for database/postgresql library.";
         else
             __postgresqlLogDebug "RHEL-6 or later"
 #            rlAssertRpm redhat-lsb-core || \
-#                rlDie "redhat-lsb-core package is neccessary for postgresql/basic library.";
+#                rlDie "redhat-lsb-core package is neccessary for database/postgresql library.";
         fi
 
         # recognize parameter to set collection via tcms case
@@ -1355,6 +1356,7 @@ true <<'=cut'
 
 Branislav Blaskovic <bblaskov@redhat.com>
 Jakub Prokes <jprokes@redhat.com>
+Vacla Danek <vdanek@redhat.com>
 
 =back
 

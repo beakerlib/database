@@ -2,9 +2,9 @@
 # vim: dict=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k ft=beakerlib
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   runtest.sh of /CoreOS/postgresql/Library/basic
+#   runtest.sh of /CoreOS/database/postgresql
 #   Description: Set of basic functions for postgresql
-#   Author: Branislav Blaskovic <bblaskov@redhat.com>
+#   Author: Vaclav Danek <vdanek@redhat.com>
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -33,7 +33,7 @@
 
 rlJournalStart
     rlPhaseStartSetup
-        rlRun "rlImport postgresql/basic" || rlDie "Loading of 'postgresql/basic' library failed."
+        rlRun "rlImport database/postgresql" || rlDie "Loading of 'database/postgresql' library failed."
     rlPhaseEnd
 
     rlPhaseStartTest "Internal methods selftest";

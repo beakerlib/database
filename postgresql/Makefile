@@ -1,8 +1,8 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   Makefile of /CoreOS/postgresql/Library/basic
+#   Makefile of /CoreOS/database/postgresql
 #   Description: Set of basic functions for postgresql
-#   Author: Branislav Blaskovic <bblaskov@redhat.com>
+#   Author: Vaclav Danek <vdanek@redhat.com>
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -24,8 +24,8 @@
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export TEST=/CoreOS/postgresql/Library/basic
-export TESTVERSION=3.0
+export TEST=/CoreOS/database/postgresql
+export TESTVERSION=4.0
 
 BUILT_FILES=
 
@@ -46,14 +46,14 @@ clean:
 include /usr/share/rhts/lib/rhts-make.include
 
 $(METADATA): Makefile
-	@echo "Owner:           Branislav Blaskovic <bblaskov@redhat.com>" > $(METADATA)
+	@echo "Owner:           Vaclav Danek <vdanek@redhat.com>" > $(METADATA)
 	@echo "Name:            $(TEST)" >> $(METADATA)
 	@echo "TestVersion:     $(TESTVERSION)" >> $(METADATA)
 	@echo "Path:            $(TEST_DIR)" >> $(METADATA)
 	@echo "Description:     Set of basic functions for postgresql" >> $(METADATA)
 	@echo "Type:            Library" >> $(METADATA)
 	@echo "TestTime:        5m" >> $(METADATA)
-	@echo "Provides:        library(postgresql/basic)" >> $(METADATA)
+	@echo "Provides:        library(database/postgresql)" >> $(METADATA)
 	@echo "Requires:        initscripts" >> $(METADATA)
 #       @echo "Requires:        redhat-lsb-core redhat-lsb" >> $(METADATA)
 #	@echo "RhtsRequires:    redhat-lsb-core redhat-lsb" >> $(METADATA)
