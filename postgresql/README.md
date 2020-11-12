@@ -75,7 +75,7 @@ Initialize postgresql datadir
 
     postgresqlStart
 
-Returns 0 when PostgreSQL is successfully initialized, non-zero otherwise.
+    Returns 0 when PostgreSQL is successfully initialized, non-zero otherwise.
 
 ## postgresqlStart
 
@@ -304,11 +304,3 @@ Returns 0 on suxcess non zero in other cases.
 - Branislav Blaskovic <bblaskov@redhat.com>
 Jakub Prokes <jprokes@redhat.com>
 Vacla Danek <vdanek@redhat.com>
-
-# POD ERRORS
-
-Hey! **The above document had some coding errors, which are explained below:**
-
-- Around line 213:
-
-    You forgot a '=back' before '=head2'

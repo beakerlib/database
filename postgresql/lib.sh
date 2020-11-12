@@ -199,6 +199,9 @@ Register trap on specified error code and message which should be shown.
 =item message
 
     Message
+
+=back
+
 =cut
 
 postgresqlRegisterEC() {
@@ -246,7 +249,7 @@ Initialize postgresql datadir
 
 =back
 
-Returns 0 when PostgreSQL is successfully initialized, non-zero otherwise.
+    Returns 0 when PostgreSQL is successfully initialized, non-zero otherwise.
 
 =cut
 
