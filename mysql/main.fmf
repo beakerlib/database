@@ -1,0 +1,9 @@
+summary: Set of basic functions for mysql
+contact: Jakub Heger <jheger@redhat.com>
+component: []
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+- mysql
+- sed
+enabled: true
