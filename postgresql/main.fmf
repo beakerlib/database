@@ -5,5 +5,3 @@ test: ./runtest.sh
 framework: beakerlib
 recommend:
 - initscripts
-duration: 5m
-extra-task: /CoreOS/database/postgresql
