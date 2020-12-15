@@ -31,7 +31,7 @@ true <<'=cut'
 
 =head1 NAME
 
-mariadb/basic - set of basic functions for MariaDB
+database/mariadb - set of basic functions for MariaDB
 
 =head1 DESCRIPTION
 
