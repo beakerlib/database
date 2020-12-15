@@ -169,7 +169,7 @@ Returns 0 when MariaDB is successfully started, non-zero otherwise.
 =cut
 
 mariadbStart() {
-    if [[ ! "$1" -eq "-k" ]]; then
+    if [[ "$1" != "-k" ]]; then
        # -k as 'keep' for keeping /var/lib/mysql and it's contents 
         if [[ -d $mariadbDbDir ]]; then
             rlRun "rm -rf $mariadbDbDir/*" 0 "Remove leftover $mariadbDbDir contents"
@@ -228,7 +228,7 @@ Returns 0 when mariadb is successfully stopped, non-zero otherwise.
 =cut
 
 mariadbStop() {
-    if [[ ! "$1" -eq "-k" ]]; then
+    if [[ "$1" != "-k" ]]; then
         rlRun "rm -rf $mariadbDbDir/*" 0 "Remove leftover $mariadbDbDir contents"
     fi
     rlRun "rlServiceStop \"$mariadbServiceName\""
