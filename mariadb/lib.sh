@@ -254,7 +254,7 @@ Returns 0 when mariadb is successfully restored, non-zero otherwise.
 =cut
 
 mariadbRestore() {
-    if [[ ! "$1" -eq "-k" ]]; then
+    if [[ "$1" != "-k" ]]; then
         rlRun "rm -rf $mariadbDbDir/*" 0 "Remove leftover $mariadbDbDir contents"
     fi
     rlRun "rlServiceRestore \"$mariadbServiceName\""
