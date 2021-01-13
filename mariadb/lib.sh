@@ -206,7 +206,7 @@ sql_mode = NO_ENGINE_SUBSTITUTION' > $mariadbCnfIncDir/NO_ENGINE_SUBSTITUTION.cn
 
     rlRun "rlServiceStart $mariadbServiceName"
     rlRun "service $mariadbServiceName status"
-    ret_code=$1
+    ret_code=$?
     [[ $ret_code -eq 0 ]] || \
         rlLog "$mariadbLog:\n$(tail -n30 $mariadbLog)"
     return $ret_code
@@ -232,7 +232,7 @@ mariadbStop() {
         rlRun "rm -rf $mariadbDbDir/*" 0 "Remove leftover $mariadbDbDir contents"
     fi
     rlRun "rlServiceStop \"$mariadbServiceName\""
-    ret_code=$1
+    ret_code=$?
     [[ $ret_code -eq 0 ]] || \
         rlLog "$mariadbLog:\n$(tail -n30 $mariadbLog)"
     return $ret_code
@@ -258,7 +258,7 @@ mariadbRestore() {
         rlRun "rm -rf $mariadbDbDir/*" 0 "Remove leftover $mariadbDbDir contents"
     fi
     rlRun "rlServiceRestore \"$mariadbServiceName\""
-    ret_code=$1
+    ret_code=$?
     [[ $ret_code -eq 0 ]] || \
         rlLog "$mariadbLog:\n$(tail -n30 $mariadbLog)"
     return $ret_code
