@@ -170,8 +170,12 @@ Returns 0 when MariaDB is successfully started, non-zero otherwise.
 
 mariadbStart() {
     if [[ "$1" != "-k" ]]; then
-       # -k as 'keep' for keeping /var/lib/mysql and it's contents 
-        if [[ -d $mariadbDbDir ]]; then
+        # -k as 'keep' for keeping /var/lib/mysql and it's contents
+        if [[ -d "$mariadbDbDir" ]]; then
+            if rlServiceStatus "$mariadbServiceName" &>/dev/null; then
+                rlLog "Stopping service before removing its content"
+                rlServiceStop "$mariadbServiceName"
+            fi
             rlRun "rm -rf $mariadbDbDir/*" 0 "Remove leftover $mariadbDbDir contents"
         else
             rlLogInfo "Creating $mariadbDbDir"
@@ -228,10 +232,10 @@ Returns 0 when mariadb is successfully stopped, non-zero otherwise.
 =cut
 
 mariadbStop() {
+    rlRun "rlServiceStop \"$mariadbServiceName\""
     if [[ "$1" != "-k" ]]; then
         rlRun "rm -rf $mariadbDbDir/*" 0 "Remove leftover $mariadbDbDir contents"
     fi
-    rlRun "rlServiceStop \"$mariadbServiceName\""
     ret_code=$?
     [[ $ret_code -eq 0 ]] || \
         rlLog "$mariadbLog:\n$(tail -n30 $mariadbLog)"
@@ -478,6 +482,7 @@ true <<'=cut'
 Branislav Blaskovic <bblaskov@redhat.com>
 Karel Volný <kvolny@redhat.com>
 Lukas Zachar <lzachar@redhat.com>
+Jakub Heger <jheger@redhat.com>
 
 =back
 
