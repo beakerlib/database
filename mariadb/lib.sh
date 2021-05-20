@@ -357,6 +357,8 @@ mariadbLibraryLoaded() {
                         mariadbCollectionName="rh-mariadb102" ;;
                     *rh-mariadb103*)
                         mariadbCollectionName="rh-mariadb103" ;;
+                    *rh-mariadb105*)
+                        mariadbCollectionName="rh-mariadb105" ;;
                 esac
                 mariadbSclPrefix="/opt/rh/${mariadbCollectionName}"
                 mariadbRootDir="${mariadbSclPrefix}/root"
