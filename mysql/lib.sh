@@ -579,7 +579,7 @@ mysqlLibraryLoaded() {
             mysqlPkgPrefix=""
             mysqlRootDir=""
             mysqlServiceName="mysqld"
-            if rlIsRHEL 8 ; then
+            if rlIsRHEL '>=8' ; then
                 mysqlLogDir="/var/log/mysql"
                 mysqlCnfDir="/etc"
                 mysqlCnfIncDir="${mysqlCnfDir}/my.cnf.d"
