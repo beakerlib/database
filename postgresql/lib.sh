@@ -311,7 +311,9 @@ postgresqlInitDB() {
             ;;
             ## ;& that isnt supported on RHEL-5 :-(
         postgresql:Fedora)
-            ;&
+            __postgresqlRun "postgresql-setup --initdb" 0 "Initialising the database" || \
+                __postgresqlLogTrace "Database initialization failed";
+            ;;
         postgresql:8)
             ;&
         postgresql:7)
@@ -1189,7 +1191,26 @@ postgresqlLibraryLoaded() {
             for pgVariant in $PACKAGE $PACKAGES $(rpm -qa --qf "%{NAME}\n" | grep postgresql); do
                 case ${pgVariant}:${distroMajor} in
                     postgresql:Fedora)
-                        ;&
+                        _postgresqlLogDebug "Found system's postgresql ${postgresqlVersion} on Fedora";
+                        _readonly postgresqlCollection=0;
+                        readonly postgresqlPackagePrefix="";
+                        readonly postgresqlServiceName="${postgresqlPackagePrefix}postgresql";
+                        readonly postgresqlRootDir="";
+                        readonly postgresqlVarDir="${postgresqlRootDir}/var";
+                        readonly postgresqlDataDir="${postgresqlVarDir}/lib/pgsql/data/";
+                        readonly postgresqlDefaultPort=5432;
+                        readonly postgresqlPidFile="${postgresqlDataDir}/postmaster.pid";
+                        readonly postgresqlLockFile="/var/lock/subsys/${postgresqlServiceName}";    ## possible wrong
+                        readonly postgresqlMainPackage="${postgresqlPackagePrefix}postgresql"
+                        local versionNumber=$(version2number $(echo $postgresqlVersion | tr -d \'\"))
+                        readonly postgresqlVersionNumber=${versionNumber#0}
+                        if [[ $postgresqlVersionNumber -ge $(version2number 10.0) ]]; then
+                            readonly postgresqlLogDir="${postgresqlDataDir}/log"
+                        else
+                            readonly postgresqlLogDir="${postgresqlDataDir}/pg_log"
+                        fi
+                        break;
+                        ;;
                     postgresql:8)
                         __postgresqlLogDebug "Found system's postgresql ${postgresqlVersion} on RHEL-8 or above";
                         rlRun "rpm -q libpq" 0 "Checking libpq version"
