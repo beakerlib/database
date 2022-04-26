@@ -502,6 +502,12 @@ mysqlLibraryLoaded() {
     # recognize parameter to set collection via tcms case
     RUN_ON_DB=${RUN_ON_DB:-"$COLLECTIONS"}
 
+    if ( [ -z "$RUN_ON_DB" ] || echo $RUN_ON_DB | grep -q '^mysql' ) && ! rpm -q mysql-server ; then
+        rlLog "MySQL is not installed. Install it."
+        [ -d /var/lib/mysql ] && rlRun "rm -rf /var/lib/mysql"
+        rlRun "yum install -y --disablerepo=beaker-tasks --allowerasing mysql mysql-server"
+    fi
+
     # Set variables according to collection
     # FIXME: this must handle selection from multiple matches in the future
     # (or the scheduling tools must ensure only one match)
