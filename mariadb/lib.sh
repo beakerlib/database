@@ -337,12 +337,17 @@ mariadbDeleteUser() {
 #   should return 0 only when the library is ready to serve.
 
 mariadbLibraryLoaded() {
+    # recognize parameter to set collection via tcms case
+    RUN_ON_DB=${RUN_ON_DB:-"$COLLECTIONS"}
+    RUN_ON_DB=${RUN_ON_DB:-"$SYSPATHS"}
+    if ( [ -z "$RUN_ON_DB" ] || echo $RUN_ON_DB | grep -q '^mariadb' ) && ! rpm -q mariadb-server ; then
+        rlLog "MariaDB is not installed. Install it."
+        [ -d /var/lib/mysql ] && rlRun "rm -rf /var/lib/mysql"
+        rlRun "yum install -y --disablerepo=beaker-tasks --allowerasing mariadb mariadb-server"
+    fi
+
     if rpm=$(rpm -qa rh-mariadb*-mariadb || rpm -q mariadb55 || rpm -q mariadb); then
         rlLogDebug "Library mariadb/basic is loaded."
-
-        # recognize parameter to set collection via tcms case
-        RUN_ON_DB=${RUN_ON_DB:-"$COLLECTIONS"}
-        RUN_ON_DB=${RUN_ON_DB:-"$SYSPATHS"}
 
         # Set variables according to collection
         case "$RUN_ON_DB" in
