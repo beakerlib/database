@@ -438,11 +438,10 @@ mariadbLibraryLoaded() {
         # Set database name and binary for parametrization
         if [ -f "/usr/bin/mariadb" ]; then
             DBBINARY="mariadb"
-            DBNAME="mariadb"
         else
             DBBINARY="mysql"
-            DBNAME="mysqld"
         fi
+        DBNAME="mariadb"
 
         # Write variables to screen
         rlLog "*** Library variables ***"
