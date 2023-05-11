@@ -428,12 +428,12 @@ mariadbLibraryLoaded() {
         mariadbPidFile="${mariadbPidFile:-${mariadbRootDir}/var/run/${mariadbServiceName}/${mariadbServiceName}.pid}"
         mariadbSocket=$(sed -n -e "s/socket=//p" "${mariadbCnfServer}")
 
-    # Set variables according to syspaths
-    case "$SYSPATHS" in
-        *rh-mariadb102)
-            mariadbServiceName="mariadb"
-            ;;
-    esac
+        # Set variables according to syspaths
+        case "$SYSPATHS" in
+            *rh-mariadb102)
+                mariadbServiceName="mariadb"
+                ;;
+        esac
 
         # Write variables to screen
         rlLog "*** Library variables ***"
