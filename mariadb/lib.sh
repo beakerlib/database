@@ -435,6 +435,15 @@ mariadbLibraryLoaded() {
                 ;;
         esac
 
+        # Set database name and binary for parametrization
+        if [ -f "/usr/bin/mariadb" ]; then
+            DBBINARY="mariadb"
+            DBNAME="mariadb"
+        else
+            DBBINARY="mysql"
+            DBNAME="mysqld"
+        fi
+
         # Write variables to screen
         rlLog "*** Library variables ***"
         rlLog "\$RUN_ON_DB              = $RUN_ON_DB"
@@ -463,6 +472,8 @@ mariadbLibraryLoaded() {
         rlLog "\$mariadbLog             = $mariadbLog"
         rlLog "\$mariadbLogDir          = $mariadbLogDir"
         rlLog "\$mariadbSocket          = $mariadbSocket"
+        rlLog "\$DBBINARY               = $DBBINARY"
+        rlLog "\$DBNAME                 = $DBNAME"
         rlLog "*******************************"
 
         return 0
