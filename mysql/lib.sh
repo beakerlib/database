@@ -608,6 +608,14 @@ mysqlLibraryLoaded() {
     PACKAGE="${mysqlPkgPrefix}mysql"
     mysqlVersion=`rpm -q --qf %{VERSION} ${PACKAGE}-server`
 
+    # Set database name and binary for parametrization
+    if [ -f "/usr/bin/mysql" ]; then
+        DBBINARY="mysql"
+    else
+        DBBINARY="mariadb"
+    fi
+    DBNAME="mysqld"
+
     # Write variables to screen
     rlLog "*** MySQL Library variables ***"
     rlLog "\$RUN_ON_DB        = $RUN_ON_DB"
@@ -633,6 +641,8 @@ mysqlLibraryLoaded() {
     rlLog "\$mysqlServiceName = $mysqlServiceName"
     rlLog "\$mysqlSocket      = $mysqlSocket"
     rlLog "\$mysqlVersion     = $mysqlVersion"
+    rlLog "\$DBBINARY         = $DBBINARY"
+    rlLog "\$DBNAME           = $DBNAME"
     rlLog "*******************************"
 
     return 0
