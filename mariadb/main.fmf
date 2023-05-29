@@ -1,6 +1,6 @@
 summary: Set of basic functions for mariadb
 contact:
-- Lukas Zachar <lzachar@redhat.com>
+- Jakub Heger <jheger@redhat.com>
 test: ./runtest.sh
 framework: beakerlib
 require:
