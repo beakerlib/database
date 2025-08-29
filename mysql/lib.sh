@@ -512,7 +512,11 @@ mysqlLibraryLoaded() {
         if ! rpm -q $MYSQL_COMP ; then
             rlLog "MySQL is not installed. Install it."
             [ -d /var/lib/mysql ] && rlRun "rm -rf /var/lib/mysql"
-            rlRun "yum install -y --disablerepo=beaker-tasks --allowerasing $MYSQL_COMP $MYSQL_COMP-server"
+            allowerasing="--allowerasing"
+            if rlIsRHEL 6; then
+                allowerasing=""
+            fi
+            rlRun "yum install -y --disablerepo=beaker-tasks ${allowerasing} $MYSQL_COMP $MYSQL_COMP-server"
         fi
     fi
 
