@@ -326,6 +326,31 @@ mariadbDeleteUser() {
     return $?
 }
 
+true <<'=cut'
+=head2 mariadbCleanup
+
+Tries to remove various cruft that may have been created during testing.
+
+    mariadbCleanup
+
+=over
+
+=back
+
+Returns 0.
+
+=cut
+
+mariadbCleanup() {
+    if [[ ${mariadbCnfSql_mode} != ${mariadbCnfServer} ]] && [[ -e ${mariadbCnfSql_mode} ]]; then
+        rlRun "rm ${mariadbCnfSql_mode}" 0 "Removing ${mariadbCnfSql_mode}"
+    else
+        rlLogInfo "Separate ${mariadbCnfSql_mode} not found, good"
+    fi
+
+    rlRun 'mysql -u root <<< "DROP DATABASE IF EXISTS test;"' 0 "Try to drop the database 'test'"
+}
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   Verification
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -502,10 +502,18 @@ mysqlLibraryLoaded() {
     # recognize parameter to set collection via tcms case
     RUN_ON_DB=${RUN_ON_DB:-"$COLLECTIONS"}
 
-    if ( [ -z "$RUN_ON_DB" ] || echo $RUN_ON_DB | grep -q '^mysql' ) && ! rpm -q mysql-server ; then
-        rlLog "MySQL is not installed. Install it."
-        [ -d /var/lib/mysql ] && rlRun "rm -rf /var/lib/mysql"
-        rlRun "yum install -y --disablerepo=beaker-tasks --allowerasing mysql mysql-server"
+    if ( [ -z "$RUN_ON_DB" ] || echo $RUN_ON_DB | grep -q '^mysql' ) ; then
+        # RHEL 10 is the new RHEL 5 with versioned rpm names
+        if rlIsRHEL 10 ; then
+            MYSQL_COMP='mysql8.4'
+        else
+            MYSQL_COMP='mysql'
+        fi
+        if ! rpm -q $MYSQL_COMP ; then
+            rlLog "MySQL is not installed. Install it."
+            [ -d /var/lib/mysql ] && rlRun "rm -rf /var/lib/mysql"
+            rlRun "yum install -y --disablerepo=beaker-tasks --allowerasing $MYSQL_COMP $MYSQL_COMP-server"
+        fi
     fi
 
     # Set variables according to collection
