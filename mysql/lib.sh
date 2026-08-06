@@ -2,7 +2,7 @@
 # vim: dict=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   lib.sh of /CoreOS/database/mysql
+#   lib.sh of /CoreOS/mysql/Library/basic
 #   Description: Set of basic functions for mysql
 #   Author: Branislav Blaskovic <bblaskov@redhat.com>
 #
@@ -158,7 +158,7 @@ mysqlStart() {
     # but on Fedora it fails to re-create it because of lack of permissions to /var/log, OH MY!
     checklog() {
         if ! [[ -e $mysqlLog ]] ; then
-           rlLogInfo "Restoring the log file (workaround)"
+           rlLogInfo "Restoring the log file (workaround bug #832035)"
            rlRun "touch $mysqlLog" 0 "Creating the logfile"
            rlRun "chown mysql:mysql $mysqlLog" 0 "Fixing ownership of the logfile"
            rlRun "chmod 640 $mysqlLog" 0 "Fixing permissions of the logfile"
@@ -199,7 +199,6 @@ Returns 0 when MySQL is successfully stopped, non-zero otherwise.
 =cut
 
 mysqlStop() {
-
     rlRun "rlServiceStop \"$mysqlServiceName\""
 
     return $?
@@ -284,7 +283,6 @@ Returns 0 when user is successfully added, non-zero otherwise.
 =cut
 
 mysqlAddUser() {
-
     local user=$1
     local pass=$2
 
@@ -312,7 +310,6 @@ Returns 0 when user is successfully deleted, non-zero otherwise.
 =cut
 
 mysqlDeleteUser() {
-
     local user=$1
 
     mysql -u root <<< "DROP USER '$user'@'localhost';"
@@ -502,6 +499,7 @@ mysqlLibraryLoaded() {
     # recognize parameter to set collection via tcms case
     RUN_ON_DB=${RUN_ON_DB:-"$COLLECTIONS"}
 
+
     if ( [ -z "$RUN_ON_DB" ] || echo $RUN_ON_DB | grep -q '^mysql' ) ; then
         # RHEL 10 is the new RHEL 5 with versioned rpm names
         if rlIsRHEL 10 ; then
@@ -515,6 +513,7 @@ mysqlLibraryLoaded() {
             rlRun "yum install -y --disablerepo=beaker-tasks --allowerasing $MYSQL_COMP $MYSQL_COMP-server"
         fi
     fi
+
 
     # Set variables according to collection
     # FIXME: this must handle selection from multiple matches in the future
@@ -651,6 +650,9 @@ mysqlLibraryLoaded() {
     rlLog "\$mysqlVersion     = $mysqlVersion"
     rlLog "\$DBBINARY         = $DBBINARY"
     rlLog "\$DBNAME           = $DBNAME"
+    rlLog "*** MySQL rpms versions ***"
+    rlLog "mysql-selinux      = $(rpm -qa mysql-selinux)"
+    rlLog "mysql-server       = $(rpm -qa mysql-server)"
     rlLog "*******************************"
 
     return 0
